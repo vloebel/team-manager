@@ -1,3 +1,4 @@
+const inquirer = require('inquirer');
 const Employee = require('../lib/Employee');
 
 /////////////////////////////////////
@@ -8,7 +9,7 @@ const Employee = require('../lib/Employee');
 // returns teamMember[]
 //////////////////////////////////////////////
 
-const promptTeamMember = () => {
+const promptTeamMember = (teamArr) => {
 
   console.log(`
 =====================
@@ -17,12 +18,7 @@ Add a New Team Member
 =====================
 `);
   
-   // If there's no teamMember array, create one
-   if (!teamMember) {
-    teamMember = [];
-  }
-
-  return inquirer
+    return inquirer
     .prompt([
     {
       type: 'input',
@@ -32,13 +28,13 @@ Add a New Team Member
         if (nameInput) {
           // validate only letters entered
           // and then force name capitalization
-          if (/^[a-zA-Z]+$/.test(nameInput)) {
-            nameInput = (nameInput.charAt(0).toUpperCase() + nameInput.slice(1).toLowerCase());
+          // if (/^[a-zA-Z]+$/.test(nameInput)) {
+          //   nameInput = (nameInput.charAt(0).toUpperCase() + nameInput.slice(1).toLowerCase());
             return true;
-          } else {
-            console.log(`English letters only, please`);
-            return false;
-          }
+          // } else {
+          //   console.log(`English letters only, please`);
+          //   return false;
+          // }
           // no nameInput //   
         } else return false;
       }
@@ -51,13 +47,13 @@ Add a New Team Member
         if (nameInput) {
           // validate only letters entered
           // and then force name capitalization
-          if (/^[a-zA-Z]+$/.test(nameInput)) {
-            nameInput = (nameInput.charAt(0).toUpperCase() + nameInput.slice(1).toLowerCase());
+          // if (/^[a-zA-Z]+$/.test(nameInput)) {
+          //   nameInput = (nameInput.charAt(0).toUpperCase() + nameInput.slice(1).toLowerCase());
             return true;
-          } else {
-            console.log(`English letters only, please`);
-            return false;
-          }
+          // } else {
+          //   console.log(`English letters only, please`);
+          //   return false;
+          // }
           // no nameInput //   
         } else return false;
       }
@@ -76,17 +72,20 @@ Add a New Team Member
       default: false
     }
   ])
-  .then(teamMemberData => {
-    let temp = new Employee(teamMemberData.fname, teamMemberData.lname, 21, "myemail");
-    teamMembers.push(temp);
-    console.log(`current team: ${teamMembers}`)
-    if (teamMemberData.confirmAdd) {
-      return promptteamMember(teamMembers);
+      .then(inquirerData => {
+        console.log("raw inquirerData is " + JSON.stringify(inquirerData));
+    let temp = new Employee(inquirerData.fName, inquirerData.lName, 21, "myemail");
+    teamArr.push(temp);
+    console.log("team is" + JSON.stringify(teamArr))
+    if (inquirerData.confirmAdd) {
+      return promptTeamMember(teamArr);
     } else {
-      return (teamMembers);
+      console.log(`Donesies!!`)
+      return (teamArr);
     }
   });
 };
 
-const myTeam = promptTeamMember();
-console.log(`here's the final team ${myTeam}`);
+
+var myTeam = [];
+promptTeamMember(myTeam);
