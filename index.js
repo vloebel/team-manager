@@ -1,111 +1,53 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
+const Employee = require('./lib/Employee.js');
+const Manager = require('./lib/Manager.js');
+const Engineer = require('./lib/Engineer.js');
+const Intern = require('./lib/Intern.js');
 
-class Employee {
-  constructor(firstName, lastName, id, email) {
-    this.lastName = lastName;
-    this.firstName = firstName;
-    this.id = id;
-    this.email = email;
-  }
-  getName() {
-    return [this.Lastname, this.firstName];
-  }
-  getId() {
-    return this.id;
-  }
-  getEmail() {
-    return this.email;
-  }
-  getRole() {
-  return "Employee"
-  }
-}
+const separator = (`===========================================================`);
+const welcomeMsg = (`===============  WELCOME TO TEAM BUILDER  ================`);
+const introMsg =
+  (`This program creates a web page from the information you enter: 
+    * Manager
+    * an optional number of employees 
+    * an optional number of engineers 
+    * an optional number of interns.
+  Your team information will be saved in the files "index.html" 
+  and "style.css" located in the ./dist directory, which must
+  exist before running this program.`);
 
-class Manager extends Employee {
-  constructor(officeNumber) {
-    this.officeNumber = officeNumber;
-  }
-  getRole() {
-    return "Manager";
-  }
-}
+// inquirer
+//   .prompt([
+//     {
+//       type: 'input',
+//       name: 'name',
+//       message: 'What is your name?'
+//     },
 
-class Engineer extends Employee{
-  constructor(github) { // user name
-    this.github = github;
-  }
-  getGithub() {
+
     
-  }
-  getRole() {
-    return "Engineer";
-  }
-  }
-
-  class Intern extends Employee{
-    constructor(school) { // user name
-      this.school = school;
-    }
-    getSchool() {
-      
-    }
-    getRole() {
-      return "Intern";
-    }
-    }
+//     {
+//       type: 'list',
+//       message: 'What is your preferred method of communication?',
+//       name: 'contact',
+//       choices: ['email', 'phone', 'Slack', 'smoke signal']
+//     },
+//     {
+//       type: 'checkbox',
+//       message: 'What languages do you know?',
+//       name: 'stack',
+//       choices: ['HTML', 'CSS', 'JavaScript', 'SQL']
+//     }
+//   ]) // Write the user response to a file by chaining the below callback method to the prompt above.
+//   .then(function(data) {
   
 
 
 
-
-
-
-
-
-
-
-
-
-// Prompt the user
-inquirer
-  .prompt([
-    {
-      type: 'input',
-      name: 'name',
-      message: 'What is your name?'
-    },
-    {
-      type: 'list',
-      message: 'What is your preferred method of communication?',
-      name: 'contact',
-      choices: ['email', 'phone', 'Slack', 'smoke signal']
-    },
-    {
-      type: 'checkbox',
-      message: 'What languages do you know?',
-      name: 'stack',
-      choices: ['HTML', 'CSS', 'JavaScript', 'SQL']
-    }
-  ]) // Write the user response to a file by chaining the below callback method to the prompt above.
-  .then(function(data) {
-    // Bonus: Generate the name of your user file from their input
-    const filename =
-      data.name
-        .toLowerCase()
-        .split(' ')
-        .join('') + '.json';
-// NOTE: STRINGIFY TAKES THE KEY/VALUE PAIRS AND TURNS THEM TAB DELIMITED STRINGS
-// JSON.stringify(value[, replacer[, space]]) 
-// value is the value to convert to a string - in this case, our data object
-// if replacer is null, all properties of the value object are included
-// space (or tab) is white space to insert. a number indicates a number of spaces <10
-//
-    fs.writeFile(filename, JSON.stringify(data, null, '\t'), function(err) {
-      if (err) {
-        return console.log(err);
-      }
-
-      console.log('Success!');
-    });
-  });
+  // ====================================================
+    console.log(separator);
+    console.log(welcomeMsg);
+    console.log(separator);
+    console.log(introMsg);
+    console.log(separator);
