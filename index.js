@@ -17,37 +17,13 @@ const introMsg =
   and "style.css" located in the ./dist directory, which must
   exist before running this program.`);
 
-// inquirer
-//   .prompt([
-//     {
-//       type: 'input',
-//       name: 'name',
-//       message: 'What is your name?'
-//     },
-
-
-    
-//     {
-//       type: 'list',
-//       message: 'What is your preferred method of communication?',
-//       name: 'contact',
-//       choices: ['email', 'phone', 'Slack', 'smoke signal']
-//     },
-//     {
-//       type: 'checkbox',
-//       message: 'What languages do you know?',
-//       name: 'stack',
-//       choices: ['HTML', 'CSS', 'JavaScript', 'SQL']
-//     }
-//   ]) // Write the user response to a file by chaining the below callback method to the prompt above.
-//   .then(function(data) {
-  
-
-
-
   // ====================================================
-    console.log(separator);
-    console.log(welcomeMsg);
-    console.log(separator);
-    console.log(introMsg);
-    console.log(separator);
+console.log(separator);
+console.log(welcomeMsg);
+console.log(separator);
+console.log(introMsg);
+console.log(separator);
+    
+//promptManager ();
+//.then promptTeam();
+
