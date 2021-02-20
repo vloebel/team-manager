@@ -1,48 +1,37 @@
 const inquirer = require('inquirer');
 const Manager = require('../lib/Manager');
 const Employee = require('../lib/Employee');
-const Engineer = require('../lib/Engineer'); 
+const Engineer = require('../lib/Engineer');
 const Intern = require('../lib/Intern');
-var managerExists = false;
 
+var managerExists = false;
 
 /////////////////////////////////////
 // function promptTeam
-// prompts for teamMember info
-// creates each object and pushes it onto teamMember[]
-// calls promptTeam again to add more
-// only one manager permitted per team
-// returns teamMember array of objects
+//  * prompts for teamMember info
+//  * Role can be Manager / Engineer / Intern / Employee
+//  * Exactly one Manager must be provided
+//  * creates new object and pushes onto team Array
+//  * returns the team Array
 //////////////////////////////////////////////
 
 const promptTeam = (teamArr) => {
-  
-  console.log(`
-  ===========================================================
-        Add New Team Member (all fields required)
-  ===========================================================
-  `);
-  
-  return inquirer
-  .prompt([
- 
-    // Role can be Manager / Engineer / Intern / Employee
-    // And determines the followup question below
-    // There can only be one Manager
-    {
+  return inquirer.prompt([
+    //display role: Manager option until we get one
+    //role choice determines followup questions below
+    { 
       type: 'list',
       name: 'role',
       message: "Use arrow keys to select team-member's role:",
-      choices: ['Employee', 'Engineer', 'Intern', 'Manager'],
+      choices: ['Manager', 'Employee', 'Engineer', 'Intern'],
       when: (!managerExists),
-      
     },
     {
       type: 'list',
       name: 'role',
       message: "Use arrow keys to select team-member's role:",
       choices: ['Employee', 'Engineer', 'Intern'],
-      when: (managerExists),     
+      when: (managerExists),
     },
     {
       type: 'input',
@@ -102,7 +91,7 @@ const promptTeam = (teamArr) => {
       validate: inputStr => {
         if (inputStr) return true;
         else return false;
-        }
+      }
     },
     // if this is a Manager, prompt for office number
     {
@@ -113,7 +102,7 @@ const promptTeam = (teamArr) => {
       validate: inputStr => {
         if (inputStr) {
           if (/^[0-9]+$/.test(inputStr)) {
-            managerExists = true; 
+            managerExists = true;
             return true;
           } else {
             console.log(`\nOffice must be a number:`);
@@ -146,66 +135,65 @@ const promptTeam = (teamArr) => {
       default: false
     }
   ])
-    .then(inquirerData => {
+  .then(inquirerData => {
 
-      console.log("RAW inquirerData is " + JSON.stringify(inquirerData));
+    console.log("RAW inquirerData is " + JSON.stringify(inquirerData));
 
-      // force "proper noun" case for names
-      inquirerData.firstName = (inquirerData.firstName.charAt(0).toUpperCase() + inquirerData.firstName.slice(1).toLowerCase());
-      inquirerData.lastName = (inquirerData.lastName.charAt(0).toUpperCase() + inquirerData.lastName.slice(1).toLowerCase());
-      // create the appropriate team-member object 
-      // and push it onto the team array
-      switch (inquirerData.role) {
-        case "Manager":
-          teamArr.push(
-            new Manager(inquirerData.firstName,
-              inquirerData.lastName,
-              inquirerData.id,
-              inquirerData.email,
-              inquirerData.officeNumber));
-          break;
-        case "Employee":
-          teamArr.push(
-            new Employee(inquirerData.firstName,
-              inquirerData.lastName,
-              inquirerData.id,
-              inquirerData.email));
-          break;
-        case "Engineer":
-          teamArr.push(
-            new Engineer(inquirerData.firstName,
-              inquirerData.lastName,
-              inquirerData.id,
-              inquirerData.email,
-              inquirerData.github));
-          break;
-        case "Intern":
-          teamArr.push(
-            new Intern(inquirerData.firstName,
-              inquirerData.lastName,
-              inquirerData.id,
-              inquirerData.email,
-              inquirerData.school));
-          break;
-        default:
-          throw ('Invalid team-member role in promptTeam');
-      }
+    // force "proper noun" case for names
+    inquirerData.firstName = (inquirerData.firstName.charAt(0).toUpperCase() + inquirerData.firstName.slice(1).toLowerCase());
+    inquirerData.lastName = (inquirerData.lastName.charAt(0).toUpperCase() + inquirerData.lastName.slice(1).toLowerCase());
 
-      // console.log("team is" + JSON.stringify(teamArr))
-
-      if (inquirerData.confirmAddAnother) {
-        return promptTeam(teamArr);
-      } else return (teamArr);
-    });
+    // create the corresponding team-member object
+    // and push it onto the team array
+    switch (inquirerData.role) {
+      case "Manager":
+        teamArr.push(
+          new Manager(inquirerData.firstName,
+            inquirerData.lastName,
+            inquirerData.id,
+            inquirerData.email,
+            inquirerData.officeNumber));
+        break;
+      case "Employee":
+        teamArr.push(
+          new Employee(inquirerData.firstName,
+            inquirerData.lastName,
+            inquirerData.id,
+            inquirerData.email));
+        break;
+      case "Engineer":
+        teamArr.push(
+          new Engineer(inquirerData.firstName,
+            inquirerData.lastName,
+            inquirerData.id,
+            inquirerData.email,
+            inquirerData.github));
+        break;
+      case "Intern":
+        teamArr.push(
+          new Intern(inquirerData.firstName,
+            inquirerData.lastName,
+            inquirerData.id,
+            inquirerData.email,
+            inquirerData.school));
+        break;
+      default:
+        throw ('Invalid team-member role in promptTeam');
+    }
+    ////////////////////////////////////////////
+    // check confirmAddAnother for exit request
+    ////////////////////////////////////////////
+  
+    if (inquirerData.confirmAddAnother) {
+      return promptTeam(teamArr);
+      // exit request but no manager yet
+    } else if (!managerExists) {
+      console.log(`\nYour team must have a manager.`);
+      return promptTeam(teamArr);
+      // exit request - all good
+    } else return (teamArr);
+  });
 };
 
-
-// var myTeam = [];
-// promptTeam(myTeam)
-//   .then( myTeam => {
-//     console.log("final team is " + JSON.stringify(myTeam));
-//     // stringToWrite = generateMarkup(answers)
-//     // writeFile(stringToWrite);
-//   });
 
 module.exports = promptTeam; 
