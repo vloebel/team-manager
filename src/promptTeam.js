@@ -1,31 +1,52 @@
 const inquirer = require('inquirer');
+const Manager = require('../lib/Manager');
 const Employee = require('../lib/Employee');
-const Engineer = require('../lib/Engineer'); ////?????????????????
+const Engineer = require('../lib/Engineer'); 
 const Intern = require('../lib/Intern');
+var managerExists = false;
 
 
 /////////////////////////////////////
 // function promptTeam
-// prompts for the next teamMember info
-// creates the object and pushes it onto teamMember[]
+// prompts for teamMember info
+// creates each object and pushes it onto teamMember[]
 // calls promptTeam again to add more
-// returns teamMember[]
+// only one manager permitted per team
+// returns teamMember array of objects
 //////////////////////////////////////////////
 
 const promptTeam = (teamArr) => {
-
+  
   console.log(`
-=====================
-Add a New Team Member
-(all fields required)
-=====================
-`);
-
-return inquirer
+  ===========================================================
+        Add New Team Member (all fields required)
+  ===========================================================
+  `);
+  
+  return inquirer
   .prompt([
+ 
+    // Role can be Manager / Engineer / Intern / Employee
+    // And determines the followup question below
+    // There can only be one Manager
+    {
+      type: 'list',
+      name: 'role',
+      message: "Use arrow keys to select team-member's role:",
+      choices: ['Employee', 'Engineer', 'Intern', 'Manager'],
+      when: (!managerExists),
+      
+    },
+    {
+      type: 'list',
+      name: 'role',
+      message: "Use arrow keys to select team-member's role:",
+      choices: ['Employee', 'Engineer', 'Intern'],
+      when: (managerExists),     
+    },
     {
       type: 'input',
-      name: 'fName',
+      name: 'firstName',
       message: 'First Name:',
       validate: inputStr => {
         if (inputStr) {
@@ -42,7 +63,7 @@ return inquirer
     },
     {
       type: 'input',
-      name: 'lName',
+      name: 'lastName',
       message: 'Last Name:',
       validate: inputStr => {
         if (inputStr) {
@@ -79,36 +100,45 @@ return inquirer
       name: 'email',
       message: 'email:',
       validate: inputStr => {
+        if (inputStr) return true;
+        else return false;
+        }
+    },
+    // if this is a Manager, prompt for office number
+    {
+      type: 'input',
+      name: 'officeNumber',
+      message: `Manager's office number:`,
+      when: (inquirerData) => inquirerData.role === "Manager",
+      validate: inputStr => {
         if (inputStr) {
-          // allows numbers, letters, @ and .
-          if (/^[a-zA-Z0-9.@]+$/.test(inputStr)) {
+          if (/^[0-9]+$/.test(inputStr)) {
+            managerExists = true; 
             return true;
           } else {
-            console.log(`Please enter a valid email of the form user-name@my-organization.domain:`);
+            console.log(`\nOffice must be a number:`);
             return false;
           }
           // no input  
         } else return false;
       }
     },
-  {
-      type: 'list',
-      name: 'role',
-      message: "Use arrow keys to select team member's role:",
-      choices: ['Employee', 'Engineer', 'Intern']
-    },
+    // if this is an Engineer, prompt for github user name
     {
       type: 'input',
       name: 'github',
       message: `Engineer's github user name:`,
       when: (inquirerData) => inquirerData.role === "Engineer"
     },
+    // if this is an Intern, prompt for school name
+
     {
       type: 'input',
       name: 'school',
       message: `Intern's school:`,
       when: (inquirerData) => inquirerData.role === "Intern",
     },
+    // Prompt to add another Employee?
     {
       type: 'confirm',
       name: 'confirmAddAnother',
@@ -121,28 +151,38 @@ return inquirer
       console.log("RAW inquirerData is " + JSON.stringify(inquirerData));
 
       // force "proper noun" case for names
-      inquirerData.fName = (inquirerData.fName.charAt(0).toUpperCase() + inquirerData.fName.slice(1).toLowerCase());
-      inquirerData.lName = (inquirerData.lName.charAt(0).toUpperCase() + inquirerData.lName.slice(1).toLowerCase());
+      inquirerData.firstName = (inquirerData.firstName.charAt(0).toUpperCase() + inquirerData.firstName.slice(1).toLowerCase());
+      inquirerData.lastName = (inquirerData.lastName.charAt(0).toUpperCase() + inquirerData.lastName.slice(1).toLowerCase());
+      // create the appropriate team-member object 
+      // and push it onto the team array
       switch (inquirerData.role) {
+        case "Manager":
+          teamArr.push(
+            new Manager(inquirerData.firstName,
+              inquirerData.lastName,
+              inquirerData.id,
+              inquirerData.email,
+              inquirerData.officeNumber));
+          break;
         case "Employee":
           teamArr.push(
-            new Employee(inquirerData.fName,
-              inquirerData.lName,
+            new Employee(inquirerData.firstName,
+              inquirerData.lastName,
               inquirerData.id,
               inquirerData.email));
           break;
         case "Engineer":
           teamArr.push(
-            new Engineer(inquirerData.fName,
-              inquirerData.lName,
+            new Engineer(inquirerData.firstName,
+              inquirerData.lastName,
               inquirerData.id,
               inquirerData.email,
               inquirerData.github));
           break;
         case "Intern":
           teamArr.push(
-            new Intern(inquirerData.fName,
-              inquirerData.lName,
+            new Intern(inquirerData.firstName,
+              inquirerData.lastName,
               inquirerData.id,
               inquirerData.email,
               inquirerData.school));
@@ -160,10 +200,12 @@ return inquirer
 };
 
 
-var myTeam = [];
-promptTeam(myTeam)
-  .then( myTeam => {
-    console.log("final team is " + JSON.stringify(myTeam));
-    // stringToWrite = generateMarkup(answers)
-    // writeFile(stringToWrite);
-  });
+// var myTeam = [];
+// promptTeam(myTeam)
+//   .then( myTeam => {
+//     console.log("final team is " + JSON.stringify(myTeam));
+//     // stringToWrite = generateMarkup(answers)
+//     // writeFile(stringToWrite);
+//   });
+
+module.exports = promptTeam; 
