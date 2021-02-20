@@ -188,7 +188,7 @@ const promptTeam = (teamArr) => {
       return promptTeam(teamArr);
       // exit request but no manager yet
     } else if (!managerExists) {
-      console.log(`\nYour team must have a manager.`);
+      console.log(`\n** Sorry - Your team must have a manager.`);
       return promptTeam(teamArr);
       // exit request - all good
     } else return (teamArr);
