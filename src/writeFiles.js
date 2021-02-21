@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 // writing files
-const writeMarkup = fileContent => {
+const writeMarkup = (fileContent) => {
   return new Promise((resolve, reject) => {
     fs.writeFile('./dist/index.html', fileContent, err => {
       if (err) {

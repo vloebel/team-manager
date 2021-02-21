@@ -1,7 +1,6 @@
-const promptTeam = require('./src/promptTeam');
+const promptTeam = require  ('./src/promptTeam');
 const generateHTML = require('./src/generateHTML');
-const writeMarkup = require('/.writeFiles');
-const copyCSS = require('/.writeFiles');
+const { writeMarkup, copyCSS } = require ('./src/writeFiles');
 
 const teamArray = []; //  array of team members
 
@@ -21,7 +20,7 @@ console.log(
         Add New Team Member (all fields required)
   ===========================================================
   `);
-const markupString = '';
+let markupString = '';
 
 promptTeam(teamArray)
   .then(teamArray => {
@@ -30,7 +29,8 @@ promptTeam(teamArray)
     markupString = generateHTML(teamArray); 
     console.log (`writing html`)
     writeMarkup(markupString);
+    console.log (`copying style sheet`)
+    copyCSS();
   })
-  console.log (`copying style sheet`)
-  copyCSS();
+  
   

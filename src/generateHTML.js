@@ -6,9 +6,11 @@ const Intern = require('../lib/Intern');
 
 const generateManager = (teamArr) => {
   // get the manager
-  const managerArr = teamArr.map("Manager");
+  console.log(`GM starting team array: ${JSON.stringify(teamArr)}`);
+  const managerArr = teamArr.filter(element => element.role === "Manager");
+  console.log(`GM returned manager array: ${JSON.stringify(managerArr)}`);
   // there's only one manager so we know it's in position 0 
-  return (`
+  let managerMarkup=`
   <div class="card md-col-3">
   <div class="card-header">
     <h4 class="card-title">${managerArr[0].firstName} ${managerArr[0].lastName}</h4>
@@ -20,15 +22,17 @@ const generateManager = (teamArr) => {
     <li class="list-group-item">Github:<a href="https://github.com/${managerArr[0].github}" class="card-link">${managerArr[0].github}</a></li>
   </ul>
 </div>
-  `);
+  `;
+  console.log(`FINISHED MANAGER MARKUP`)
+  return managerMarkup;
 }
 ///////////////////////////////////////////////////////
 
 
 // export function to generate entire page
 const generateHTML = (teamArray) => {
-  return (`
-<!DOCTYPE html>
+  let siteMarkup =
+    `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -47,15 +51,17 @@ const generateHTML = (teamArray) => {
     <div id="card-section" class = "row ">
     <!------------------Generated cards row ------------------------->
     ${generateManager(teamArray)}
+  
     
-    
-        <!------------------Generated cards row ------------------------->
+    <!------------------Generated cards row ------------------------->
     </div>
   </main>  
 </body>
 
 </html>
-`)
+`;
+  console.log(`***************************\nFINISHED SITE MARKUP`)
+  return (siteMarkup);
 }
 
 module.exports = generateHTML;
