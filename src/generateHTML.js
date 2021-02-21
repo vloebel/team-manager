@@ -17,9 +17,9 @@ const generateManager = (teamArr) => {
     <h4 class="card-title">${managerArr[0].role}</h4>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">${managerArr[0].ID}</li>
-    <li class="list-group-item">Email:<a href="mailto:${managerArr[0].email}" class="card-link">${managerArr[0].email}</a></li>
-    <li class="list-group-item">Github:<a href="https://github.com/${managerArr[0].github}" class="card-link">${managerArr[0].github}</a></li>
+    <li class="list-group-item">ID: ${managerArr[0].id}</li>
+    <li class="list-group-item">Email: <a href="mailto:${managerArr[0].email}" class="card-link">${managerArr[0].email}</a></li>
+    <li class="list-group-item">Office Number: <a href="https://github.com/${managerArr[0].officeNumber}" class="card-link">${managerArr[0].officeNumber}</a></li>
   </ul>
 </div>
   `;
@@ -27,7 +27,28 @@ const generateManager = (teamArr) => {
   return managerMarkup;
 }
 ///////////////////////////////////////////////////////
-
+const generateEngineer = (teamArr) => {
+  // get the Engineers
+  const engArr = teamArr.filter(element => element.role === "Engineer");
+  console.log(`GM created engineer array: ${JSON.stringify(engArr)}`);
+  let engineerMarkup = engArr.foreach(eng => {
+    `<div class="card md-col-3">
+  <div class="card-header">
+    <h4 class="card-title">${eng.firstName} ${eng.lastName}</h4>
+    <h4 class="card-title">${eng.role}</h4>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">ID: ${eng.id}</li>
+    <li class="list-group-item">Email:<a href="mailto:${eng.email}" class="card-link">${eng.email}</a></li>
+    <li class="list-group-item">Github:<a href="https://github.com/${eng.github}" class="card-link">${eng.github}</a></li>
+  </ul>
+</div>
+  `
+  }).join(``);
+  
+  console.log(`FINISHED ENGINEER MARKUP`)
+  return engineerMarkup;
+}
 
 // export function to generate entire page
 const generateHTML = (teamArray) => {
@@ -51,6 +72,8 @@ const generateHTML = (teamArray) => {
     <div id="card-section" class = "row ">
     <!------------------Generated cards row ------------------------->
     ${generateManager(teamArray)}
+    ${generateEmployees(teamArray)}
+
   
     
     <!------------------Generated cards row ------------------------->
