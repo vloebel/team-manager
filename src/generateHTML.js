@@ -27,12 +27,13 @@ const generateManager = (teamArr) => {
   return managerMarkup;
 }
 ///////////////////////////////////////////////////////
-const generateEngineer = (teamArr) => {
+const generateEngineers = (teamArr) => {
   // get the Engineers
   const engArr = teamArr.filter(element => element.role === "Engineer");
   console.log(`GM created engineer array: ${JSON.stringify(engArr)}`);
-  let engineerMarkup = engArr.foreach(eng => {
-    `<div class="card md-col-3">
+  let engineerMarkup = engArr.map(eng => {
+    return `
+  <div class="card md-col-3">
   <div class="card-header">
     <h4 class="card-title">${eng.firstName} ${eng.lastName}</h4>
     <h4 class="card-title">${eng.role}</h4>
@@ -48,7 +49,7 @@ const generateEngineer = (teamArr) => {
   
   console.log(`FINISHED ENGINEER MARKUP`)
   return engineerMarkup;
-}
+};
 
 // export function to generate entire page
 const generateHTML = (teamArray) => {
@@ -72,7 +73,7 @@ const generateHTML = (teamArray) => {
     <div id="card-section" class = "row ">
     <!------------------Generated cards row ------------------------->
     ${generateManager(teamArray)}
-    ${generateEmployees(teamArray)}
+    ${generateEngineers(teamArray)}
 
   
     
