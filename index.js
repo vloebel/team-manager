@@ -1,27 +1,10 @@
-// const fs = require('fs');
-// const inquirer = require('inquirer');
 const promptTeam = require('./src/promptTeam');
+const generateHTML = require('./src/generateHTML');
+const writeMarkup = require('/.writeFiles');
+const copyCSS = require('/.writeFiles');
 
-// const Employee = require('./lib/Employee.js');
-// const Manager = require('./lib/Manager.js');
-// const Engineer = require('./lib/Engineer.js');
-// const Intern = require('./lib/Intern.js');
+const teamArray = []; //  array of team members
 
-const separator = (`===========================================================`);
-const welcomeMsg = (`===============  WELCOME TO TEAM BUILDER  ================`);
-const introMsg =
-  (`This program creates a web page from the information you enter: 
-    * Manager
-    * an optional number of employees 
-    * an optional number of engineers 
-    * an optional number of interns.
-  Your team information will be saved in the files "index.html" 
-  and "style.css" located in the ./dist directory, which must
-  exist before running this program.`);
-  
-const teamArray = []; // the array of team members
-
-  // ====================================================
 console.log(
   `===============  WELCOME TO TEAM BUILDER  ================
   
@@ -38,10 +21,16 @@ console.log(
         Add New Team Member (all fields required)
   ===========================================================
   `);
-  
+const markupString = '';
+
 promptTeam(teamArray)
-  .then( teamArray => {
-    console.log("final team is " + JSON.stringify(teamArray));
-    // stringToWrite = generateMarkup(answers)
-    // writeFile(stringToWrite);
-  });
+  .then(teamArray => {
+    // console.log("final team is " + JSON.stringify(teamArray));
+    console.log (`generating markup`)
+    markupString = generateHTML(teamArray); 
+    console.log (`writing html`)
+    writeMarkup(markupString);
+  })
+  console.log (`copying style sheet`)
+  copyCSS();
+  

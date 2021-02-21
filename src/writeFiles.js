@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 // writing files
-const writeFile = fileContent => {
+const writeMarkup = fileContent => {
   return new Promise((resolve, reject) => {
     fs.writeFile('./dist/index.html', fileContent, err => {
       if (err) {
@@ -18,7 +18,7 @@ const writeFile = fileContent => {
 };
 
 // copying file
-const copyFile = () => {
+const copyCSS = () => {
   return new Promise((resolve, reject) => {
     fs.copyFile('./src/style.css', './dist/style.css', err => {
       if (err) {
@@ -38,4 +38,4 @@ const copyFile = () => {
   });
 };
 
-module.exports = { writeFile, copyFile };
+module.exports = { writeMarkup, copyCSS };
