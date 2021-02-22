@@ -137,7 +137,7 @@ const promptTeam = (teamArr) => {
   ])
   .then(inquirerData => {
 
-    console.log("RAW inquirerData is " + JSON.stringify(inquirerData));
+    // console.log("RAW inquirerData is " + JSON.stringify(inquirerData));
 
     // force "proper noun" case for names
     inquirerData.firstName = (inquirerData.firstName.charAt(0).toUpperCase() + inquirerData.firstName.slice(1).toLowerCase());
@@ -145,6 +145,8 @@ const promptTeam = (teamArr) => {
 
     // create the corresponding team-member object
     // and push it onto the team array
+    // we don't have to push "role" because that's
+    // defined in each object already
     switch (inquirerData.role) {
       case "Manager":
         teamArr.push(
@@ -194,6 +196,5 @@ const promptTeam = (teamArr) => {
     } else return (teamArr);
   });
 };
-
 
 module.exports = promptTeam; 

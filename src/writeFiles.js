@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-// writing files
+// writes the HTML markup to ./dest/index.HTML
 const writeMarkup = (fileContent) => {
   return new Promise((resolve, reject) => {
     fs.writeFile('./dist/index.html', fileContent, err => {
@@ -17,7 +17,7 @@ const writeMarkup = (fileContent) => {
   });
 };
 
-// copying file
+// copies the css file from ./src to ./dest
 const copyCSS = () => {
   return new Promise((resolve, reject) => {
     fs.copyFile('./src/style.css', './dist/style.css', err => {

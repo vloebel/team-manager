@@ -1,4 +1,0 @@
-
-> new-folder@1.0.0 test C:\Vicky 2018\Dropbox\Coding Boot Camp 2021\Module-10-OOP\challenge-10
-> jest "Employee"
-

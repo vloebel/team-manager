@@ -12,7 +12,7 @@ console.log(
       * One manager (required)
       * Any number of employees, engineers, and interns. 
     
-    Team roster is saved in "index.html" and "style.css"
+    Team information is saved in "index.html" and "style.css"
     located in the ./dist directory, which must exist
     before running this program.
     
@@ -25,12 +25,12 @@ let markupString = '';
 promptTeam(teamArray)
   .then(teamArray => {
     // console.log("final team is " + JSON.stringify(teamArray));
-    console.log (`generating markup`)
     markupString = generateHTML(teamArray); 
-    console.log (`writing html`)
+    console.log (`writing html file`)
     writeMarkup(markupString);
-    console.log (`copying style sheet`)
     copyCSS();
+    console.log (`Your information is ready in ./dist/index.html`)
+
   })
   
   

@@ -1,8 +1,8 @@
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  # Team Manager
+  # Team Builder
   ## Description  
-  Command-line application that prompts for information about the manager, employees, and interns on a team and generates a web page showing the team roster.
+  Team Builder is a command-line application that prompts for information about the manager, employees, engineers, and interns on a team and generates a web page containing the team roster.
   ## Table of Contents  
    * [Installation](#Installation)  
   * [Usage](#Usage)  
@@ -11,11 +11,10 @@
   * [Questions](#Questions)    
   * [License](#License)
   ## Installation  
-  Requires node.js and inquirer for prompting user input.
+  In addition to the applicaton files, this program requires node.js and inquirer for prompting user input.
   ## Usage  
   run with 'node index" from the command line where the js files and libraries are installed
-  ## Contributing  
-  roster could be expanded to include multiple managers and departments by adding higher levels of organization.
+ 
   ## Testing  
   _tests_ folder contains an existing test package. Install "jest" in the program directory to run tests.
   ## Questions
