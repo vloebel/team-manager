@@ -21,7 +21,7 @@ const generateManagerCard = (teamArr) => {
   <ul class="list-group list-group-flush">
     <li class="list-group-item">ID: ${managerArr[0].id}</li>
     <li class="list-group-item">Email: <a href="mailto:${managerArr[0].email}" class="card-link">${managerArr[0].email}</a></li>
-    <li class="list-group-item">Office Number: ${managerArr[0].officeNumber}" class="card-link">${managerArr[0].officeNumber}</a></li>
+    <li class="list-group-item">Office Number: ${managerArr[0].officeNumber}</li>
   </ul>
 </div>
   `;

@@ -21,6 +21,8 @@
   For more information, contact  
   * [vloebel on GitHub](https://github.com/vloebel)  
   * [vickyloebel](mailto:vickyloebel)
+
+  ![Team Builder Output](./img/teambuilder-img.jpg)
   ## License
   This software is distrubted without warranty under the MIT license agreement. To view terms and conditions, visit the [MIT License website](https://opensource.org/licenses/MIT).
       
