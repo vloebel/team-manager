@@ -1,0 +1,38 @@
+:root {
+  --light: #f9eded;
+  --light-blue: #e3e7e9;
+  --medium-blue: #c0d6e4;
+  --dark-blue: #29364f;
+  --dark: #181b26;
+  --weather-card:rgb(252, 216, 150);
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.jumbotron {
+  background-color:var(--dark-blue);
+}
+
+header h1 {
+  margin:auto;
+  text-align: center;
+  color:var(--light);
+}
+
+body{
+  background-color: var(--light-blue);
+}
+
+.card {
+  width: 15rem;
+  height:18rem;
+  margin:1rem;
+}
+
+.card-title{
+  color: var(--dark-blue);
+
+}
