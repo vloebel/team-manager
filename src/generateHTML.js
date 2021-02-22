@@ -86,7 +86,7 @@ const generateEngineerCards = (teamArr) => {
 // RETURNS the intern-card markup string
 ///////////////////////////////////////////////////////
 const generateInternCards = (teamArr) => {
-  const internArr = teamArr.filter(element => element.role === "Employee");
+  const internArr = teamArr.filter(element => element.role === "Intern");
   let employeeMarkup = internArr.map(intern => {
     return `
   <div class="card md-col-3">
