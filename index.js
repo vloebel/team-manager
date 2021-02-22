@@ -26,10 +26,13 @@ promptTeam(teamArray)
   .then(teamArray => {
     // console.log("final team is " + JSON.stringify(teamArray));
     markupString = generateHTML(teamArray); 
-    console.log (`writing html file`)
     writeMarkup(markupString);
     copyCSS();
-    console.log (`Your information is ready in ./dist/index.html`)
+    console.log(`
+    ===========================================================
+       DONE! Your information is ready in ./dist/index.html
+    ===========================================================
+    `)
 
   })
   
